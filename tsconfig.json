@@ -1,0 +1,11 @@
+{
+   "extends": "@tsconfig/node12/tsconfig.json",
+   "compilerOptions": {
+     "preserveConstEnums": true
+   },
+   "include": ["*"],
+   "exclude": ["node_modules"]
+ }
+ 
+
+ 
