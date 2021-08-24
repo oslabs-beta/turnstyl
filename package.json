@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/oslabs-beta/turnstyl/issues"
   },
-  "homepage": "https://github.com/oslabs-beta/turnstyl#readme"
+  "homepage": "https://github.com/oslabs-beta/turnstyl#readme",
+  "dependencies": {
+    "@google-cloud/bigquery": "^5.8.0",
+    "@types/node": "^16.7.1"
+  }
 }
