@@ -1,0 +1,23 @@
+{
+  "name": "turnstyl",
+  "version": "0.1.0",
+  "description": "This is a readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/turnstyl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/turnstyl/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/turnstyl#readme",
+  "dependencies": {
+    "@google-cloud/bigquery": "^5.8.0",
+    "@types/node": "^16.7.1"
+  }
+}
