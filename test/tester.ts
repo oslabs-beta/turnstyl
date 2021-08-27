@@ -1,0 +1,1 @@
+import {schemaQuery} from "../src/schemaQuery"
