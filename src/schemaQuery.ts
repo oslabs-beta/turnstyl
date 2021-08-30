@@ -30,13 +30,14 @@ const schemaQuery = async (
   // Declare the options object to reference the query
   const options = {
     query: query,
+    /*keyFilename:'test/probable-cove-323115-e0396195a384.json'*/
   };
 
   // Run the query as a job
   const [job] = await bigquery.createQueryJob(options);
 
   // Wait for the query to finish
-  const [rows] = await job.getQueryResults();
+  const [rows] = await job.getQueryResults(options);
 
   // return the first row from the table
   return rows[0];
