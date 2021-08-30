@@ -4,6 +4,6 @@
     "noImplicitAny": false,
     "preserveConstEnums": true
   },
-  "include": ["*"],
+  "include": ["*", "src/index.ts"],
   "exclude": ["node_modules"]
 }

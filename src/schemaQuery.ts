@@ -1,31 +1,33 @@
 const { BigQuery } = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
 const fs = require('fs');
+const path = require('path');
 const yaml = require('js-yaml');
 // TODO: determine out to expose the yml file in user's directory (outside of node modules in final test platform)
-let fileContents = fs.readFileSync('../turnstyl.config.yaml', 'utf8');
+let fileContents = fs.readFileSync(
+  path.join(__dirname, '../turnstyl.config.yaml'),
+  'utf8'
+);
 // Load yaml into file
 let data = yaml.load(fileContents);
 
 // Function that queries the Big Query API and fetches the latest record from our event table
 /**
- * @function schemaQuery 
+ * @function schemaQuery
  * @param projectName <String> Name of the google Cloud Big Query project that form the table address
  * @param datasetName <String> Name of the dataset that has the table of interest
- * @param tableName <String> Table of interest 
+ * @param tableName <String> Table of interest
  * @param payloadName <string>Default:'payload' - Optional name of payload
- * @returns The most recent row form the select table 
+ * @returns The most recent row form the select table
  */
 const schemaQuery = async (
-  projectName :string,
+  projectName: string,
   datasetName: string,
   tableName: string,
   payloadName: string = 'payload',
   orderByName: string = 'insertion_timestamp'
 ) => {
- 
-  const query = 
-  `
+  const query = `
   SELECT ${payloadName}
   FROM ${projectName}.${datasetName}.${tableName}
   ORDER BY ${orderByName}
@@ -36,7 +38,7 @@ const schemaQuery = async (
   // Run the query as a job
   const [job] = await bigquery.createQueryJob({
     keyFilename: data['google_service_credentials'],
-    query: query
+    query: query,
   });
   // Wait for the query to finish
   const [rows] = await job.getQueryResults();
