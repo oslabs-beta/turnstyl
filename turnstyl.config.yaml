@@ -1,3 +1,4 @@
 version: '1.0'
 rules:
   - compare-objects
+google_service_credentials: './bigQueryServiceCredentials.json'
