@@ -18,7 +18,7 @@ const schemaQuery = async (
   orderByName: string = 'insertion_timestamp'
 ) => {
  
-  const query: string = 
+  const query = 
   `
   SELECT ${payloadName}
   FROM ${projectName}.${datasetName}.${tableName}
@@ -27,18 +27,10 @@ const schemaQuery = async (
   LIMIT 1
   `;
 
-  // Declare the options object to reference the query
-  const options = {
-    query: query,
-    /*keyFilename:'test/probable-cove-323115-e0396195a384.json'*/
-  };
-
   // Run the query as a job
-  const [job] = await bigquery.createQueryJob(options);
-
+  const [job] = await bigquery.createQueryJob({query: query,});
   // Wait for the query to finish
-  const [rows] = await job.getQueryResults(options);
-
+  const [rows] = await job.getQueryResults();
   // return the first row from the table
   return rows[0];
 };
