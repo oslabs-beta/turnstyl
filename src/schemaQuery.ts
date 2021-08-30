@@ -10,7 +10,7 @@ let data = yaml.load(fileContents);
 // Function that queries the Big Query API and fetches the latest record from our event table
 /**
  * @function schemaQuery 
- * @param projectName <String> Name of the google Cloud Big Querry project that form the table address
+ * @param projectName <String> Name of the google Cloud Big Query project that form the table address
  * @param datasetName <String> Name of the dataset that has the Table of interest
  * @param tableName <String> Table of interest 
  * @param payloadName <string>Default:'payload' - Optional name of payload
