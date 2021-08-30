@@ -14,7 +14,7 @@ let data = yaml.load(fileContents);
  * @param datasetName <String> Name of the dataset that has the table of interest
  * @param tableName <String> Table of interest 
  * @param payloadName <string>Default:'payload' - Optional name of payload
- * @returns The most recent row form the select Table 
+ * @returns The most recent row form the select table 
  */
 const schemaQuery = async (
   projectName :string,
