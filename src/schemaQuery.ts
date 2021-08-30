@@ -11,7 +11,7 @@ let data = yaml.load(fileContents);
 /**
  * @function schemaQuery 
  * @param projectName <String> Name of the google Cloud Big Query project that form the table address
- * @param datasetName <String> Name of the dataset that has the Table of interest
+ * @param datasetName <String> Name of the dataset that has the table of interest
  * @param tableName <String> Table of interest 
  * @param payloadName <string>Default:'payload' - Optional name of payload
  * @returns The most recent row form the select Table 
