@@ -1,4 +1,4 @@
-var Turnstyl = require('./src/turnstyl.ts').Turnstyl;
+const { Turnstyl } = require("./src/turnstyl.js");
 module.exports = {
-    Turnstyl: Turnstyl
+  Turnstyl,
 };

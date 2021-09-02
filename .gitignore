@@ -119,12 +119,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 # test platform
-<<<<<<< HEAD
-test/
-||||||| merged common ancestors
-test/
-=======
 test/
 
-src/schemaQuery.js
->>>>>>> f20d9ea6131c949143616c0f294f484a370f20a3
+
