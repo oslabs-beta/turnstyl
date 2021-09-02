@@ -77,4 +77,4 @@ const schemaQuery = (
     // return the first row from the table
     return rows[0];
   });
-export { schemaQuery };
+module.exports = { schemaQuery };
