@@ -1,14 +1,24 @@
 import { Turnstyl } from '../src/turnstyl';
 
-const { turnstyl } = require('../src/turnstyl.ts');
-
 describe('Turnstyl test', () => {
   const turnstylTestClass = new Turnstyl();
   const testTopic: string = 'testTopic';
   const testMessage: object = {
-    firstName: 'Fred',
-    lastName: 'Flintstone',
-    accountNumber: 99999,
+    event_id: '7c9c6a64-2678-4589-90c2-fdb1d33c876c',
+    eventTimstamp: '2062-08-08T03:53:23.563Z',
+    eventName: 'bank_transfer_transactions',
+    senderName: 'Dana Rohan',
+    senderAccount: '77838202',
+    senderAccountName: 'Home Loan Account',
+    receiverName: 'Ms. Craig Smith',
+    receiverAccount: '93915846',
+    receiverAccountName: 'Money Market Account',
+    transactionDesc:
+      'deposit transaction at Barton - Brakus using card ending with ***0217 for STN 119.62 in account ***26941414',
+    transaction_type: 'invoice',
+    amount: '480.22',
+    currency: 'Serbian Dinar',
+    curencyCode: 'NPR',
   };
 
   describe('Class datatype checking', () => {
@@ -56,7 +66,7 @@ describe('Turnstyl test', () => {
       // Tests that an object is being returned
       expect(typeof result === 'object').toBe(true);
       // Tests that we're receiving datatypes in our object
-      expect(result['firstName'] === 'string').toBe(true);
+      expect(result['senderName'] === 'string').toBe(true);
     });
 
     it('Turnstyl.extractSchema when invoked dumps an empty object into the cache', async () => {
