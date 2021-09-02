@@ -4,6 +4,6 @@
     "noImplicitAny": false,
     "preserveConstEnums": true
   },
-  "include": ["*", "src/index.ts"],
+  "include": ["index.ts", "turnstyl.ts", "schemaQuery.ts"],
   "exclude": ["node_modules"]
 }
