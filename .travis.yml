@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - '14.17.0'
+
+before_deploy: "echo 'Travis CI starting up!!!'"
+
+jobs:
+  include:
+    - stage: testing
+    if: branch in (main, dev)
+    before_install: # before npm install
+        - "echo 'INSTALLING npm packages'"
+        - npm run install
+    script: # before running test
+        - "echo 'RUNNING Jest tests'"
+        - npm jest
+    after_success: # after test is ru
+        - "echo 'Travis CI checks and Jest tests have passed!!'"
+        - "echo 'Deploying to NPM'"
+    deploy:
+      on:
+        branch: dev
+      provider: npm
+      email: 'michael.e.colley@googlemail.com'
+      api_key: NPM-TOKEN
