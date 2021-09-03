@@ -10,7 +10,7 @@ jobs:
       if: branch in (main, dev)
       before_install: # before npm install
         - "echo 'INSTALLING npm packages'"
-        - npm run install
+        - npm install
         - "echo 'Bumping version number'"
         - npm --no-git-tag-version version patch
       script: # before running test
