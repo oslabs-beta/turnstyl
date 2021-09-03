@@ -12,7 +12,6 @@ bigQueryServiceCredentials.json
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 lib/
-jest.config.js
 
 # Runtime data
 pids
