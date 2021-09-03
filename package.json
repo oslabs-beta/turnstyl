@@ -30,7 +30,8 @@
     "@jest/types": "^27.1.0",
     "@tsconfig/node12": "^1.0.9",
     "@types/node": "^16.7.1",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "node-jq": "^2.0.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.15.0",
