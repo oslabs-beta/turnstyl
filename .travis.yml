@@ -16,6 +16,7 @@ jobs:
       script: # before running test
         - "echo 'RUNNING Jest tests'"
         - npm test
+        - ls
       after_success: # after test is ru
         - "echo 'Travis CI checks and Jest tests have passed!!'"
         - "echo 'Deploying to NPM'"
