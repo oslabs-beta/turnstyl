@@ -11,15 +11,15 @@ jobs:
       before_install: # before npm install
         - "echo 'INSTALLING npm packages'"
         - npm install
-        - echo 'Bumping version number'
+        - echo 'Bumping version number'"
         - npm --no-git-tag-version version patch
       script: # before running test
-        - echo 'RUNNING Jest tests'
+        - "echo 'RUNNING Jest tests'"
         - ls
         - npm test
       after_success: # after test is ru
-        - echo 'Travis CI checks and Jest tests have passed!!'
-        - echo 'Deploying to NPM'
+        - "echo 'Travis CI checks and Jest tests have passed!!'"
+        - "echo 'Deploying to NPM'"
       deploy:
         on:
           branch: dev
