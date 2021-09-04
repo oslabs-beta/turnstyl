@@ -24,4 +24,4 @@ jobs:
           branch: dev
         provider: npm
         email: 'michael.e.colley@googlemail.com'
-        api_key: $NPM-TOKEN
+        api_key: $NPM_TOKEN
