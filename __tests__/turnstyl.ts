@@ -194,7 +194,7 @@ describe('Turnstyl test', () => {
       expect(result).toBe(true);
     });
 
-    it('Turnstyl.deepCompareKeys correctly handles nested schema with different keys values as mismatching', () => {
+    it('Turnstyl.deepCompareKeys correctly handles nested schema with different keys as mismatching', () => {
       const result = turnstylTestClass.deepCompareKeys(
           testNest,testNestBad
       );

@@ -4,14 +4,9 @@ import { object } from "is";
 const { schemaQuery } = require('./schemaQuery');
 const fs = require('fs');
 const path = require('path');
-const yaml = require('js-yaml');
-// TODO: determine out to expose the yml file in user's directory (outside of node modules in final test platform)
-const yamlFileContents = fs.readFileSync(
-  path.join(__dirname, '../turnstyl.config.yaml'),
-  'utf8'
-);
-// Load yaml into file
-const userConfig = yaml.load(yamlFileContents);
+const { configInitializer } = require('./configInitializer');
+
+const userConfig = configInitializer();
 
 const Turnstyl = function (this: typeof Turnstyl) {
   this.schemaCache = {};
@@ -121,17 +116,15 @@ const Turnstyl = function (this: typeof Turnstyl) {
 
     //since they have same length, iterate through
     for (let i = 0; i < keys1.length; i++){
-      if (keys1[i] !== keys2[i]) {
+
+      if (keys1[i] !== keys2[i] || typeof(object1[keys1[i]]) !== typeof(object2[keys2[i]])) {
         return false; // nesting mismatch
       }  
       if (typeof(object1[keys1[i]]) === 'object' && typeof(object2[keys2[i]]) === 'object'){
         if(!this.deepCompareKeys(object1[keys1[i]],object2[keys2[i]])){
           return false;
         }
-      } else if ((typeof(object1[keys1[i]]) !== 'object' && typeof(object2[keys2[i]]) === 'object') 
-      || (typeof(object1[keys1[i]]) !== 'object' && typeof(object2[keys2[i]]) === 'object')){
-        return false;
-      }
+      } 
     }
   return true;
   };
