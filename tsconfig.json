@@ -8,6 +8,11 @@
     "preserveConstEnums": true,
     "outDir": "./lib/esm"
   },
-  "include": ["index.ts", "./src/turnstyl.ts", "./src/schemaQuery.ts"],
+  "include": [
+    "index.ts",
+    "./src/turnstyl.ts",
+    "./src/schemaQuery.ts",
+    "./src/configInitializer.ts"
+  ],
   "exclude": ["node_modules"]
 }
