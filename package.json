@@ -30,6 +30,7 @@
     "@jest/types": "^27.1.0",
     "@tsconfig/node12": "^1.0.9",
     "@types/node": "^16.7.1",
+    "app-root-path": "^3.0.0",
     "js-yaml": "^4.1.0",
     "node-jq": "^2.0.0"
   },
