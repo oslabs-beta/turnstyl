@@ -96,12 +96,17 @@ const Turnstyl = function (this: typeof Turnstyl) {
     } catch (err) {
       console.log('Mismatch detected: ', err);
     }
-};
+  };
 
   //## Helper Methods ## 
-
+/**
+   * @method deepCompareKeys
+   * @param object1 <object> Schema pair for comparison
+   * @param object2 <object> Second Schema for comparison
+   * @returns <boolean>
+   */
   // traverse keys of both schemas and return false upon mismatch
-  this.deepCompareKeys = function (object1: object, object2: object){
+  this.deepCompareKeys = function (object1: object, object2: object) {
     // base case - nulls 
     if(object1 === null && object2 === null){
       return true;
@@ -130,82 +135,8 @@ const Turnstyl = function (this: typeof Turnstyl) {
     }
   return true;
   };
+
 };
 
 export { Turnstyl };
 
-// TESTING - DELETE
-const projectName: string = 'probable-cove-323115';
-const datasetName: string = 'turnstyl_test_events';
-const tableName: string = 'bank_transfer_events';
-const testMessage: object = {
-  event_id: '7c9c6a64-2678-4589-90c2-fdb1d33c876c',
-  eventTimstamp: '2062-08-08T03:53:23.563Z',
-  eventName: 'bank_transfer_transactions',
-  senderName: 'Dana Rohan',
-  senderAccount: '77838202',
-  senderAccountName: 'Home Loan Account',
-  receiverName: 'Ms. Craig Smith',
-  receiverAccount: '93915846',
-  receiverAccountName: 'Money Market Account',
-  transactionDesc:
-    'deposit transaction at Barton - Brakus using card ending with ***0217 for STN 119.62 in account ***26941414',
-  transaction_type: 'invoice',
-  amount: '480.22',
-  currency: 'Serbian Dinar',
-  curencyCode: 'NPR',
-  NEST: { 
-    MATCH: 'true',
-  },
-};
-const testNest: object =  {
-  event_id: '7c9c6a64-2678-4589-90c2-fdb1d33c876c',
-  eventTimstamp: '2062-08-08T03:53:23.563Z',
-  eventName: 'bank_transfer_transactions',
-  senderName: 'Dana Rohan',
-  senderAccount: '77838202',
-  senderAccountName: 'Home Loan Account',
-  receiverName: 'Ms. Craig Smith',
-  receiverAccount: '93915846',
-  receiverAccountName: 'Money Market Account',
-  transactionDesc:
-    'deposit transaction at Barton - Brakus using card ending with ***0217 for STN 119.62 in account ***26941414',
-  transaction_type: 'invoice',
-  amount: '480.22',
-  currency: 'Serbian Dinar',
-  curencyCode: 'NPR',
-  NEST: { 
-    MATCH: 'true',
-  },
-};
-const testNestBad: object =  {
-  event_id: '7c9c6a64-2678-4589-90c2-fdb1d33c876c',
-  eventTimstamp: '2062-08-08T03:53:23.563Z',
-  eventName: 'bank_transfer_transactions',
-  senderName: 'Dana Rohan',
-  senderAccount: '77838202',
-  senderAccountName: 'Home Loan Account',
-  receiverName: 'Ms. Craig Smith',
-  receiverAccount: '93915846',
-  receiverAccountName: 'Money Market Account',
-  transactionDesc:
-    'deposit transaction at Barton - Brakus using card ending with ***0217 for STN 119.62 in account ***26941414',
-  transaction_type: 'invoice',
-  amount: '480.22',
-  currency: 'Serbian Dinar',
-  curencyCode: 'NPR',
-  NEST: { 
-    MATCH: 'false',
-    EXTRA: 'this should fail now',
-  },
-};
-const ts = new Turnstyl();
-console.log('testing nesting - should be true: ',ts.deepCompareKeys(testMessage, testNest));
-console.log('testing bad nest - should be false: ', ts.deepCompareKeys(testMessage, testNestBad));
-const data = schemaQuery(projectName, datasetName, tableName)
-.then (el => {
-  console.log('resp.payload ', el.payload)
-  const obj = JSON.parse(el.payload);
-  console.log('bigquey after parse', obj);
-  console.log("Schemas match? :",ts.deepCompareKeys(testMessage, obj));
-});
