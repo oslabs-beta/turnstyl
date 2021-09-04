@@ -2,14 +2,9 @@ const { BigQuery } = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
 const fs = require('fs');
 const path = require('path');
-const yaml = require('js-yaml');
-// TODO: determine out to expose the yml file in user's directory (outside of node modules in final test platform)
-const yamlFileContents = fs.readFileSync(
-  path.join(__dirname, '../turnstyl.config.yaml'),
-  'utf8'
-);
-// Load yaml into file
-const userConfig = yaml.load(yamlFileContents);
+const { configInitializer } = require('./configInitializer');
+
+const userConfig = configInitializer();
 
 // Function that queries the Big Query API and fetches the latest record from our event table
 /**
