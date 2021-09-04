@@ -12,9 +12,11 @@ jobs:
         - "echo 'INSTALLING npm packages'"
         - npm install
         - echo 'Bumping version number'"
+        -
         - npm --no-git-tag-version version patch
       script: # before running test
         - "echo 'RUNNING Jest tests'"
+        - "echo 'hello' > test.txt"
         - ls
         - npm test
       after_success: # after test is ru
