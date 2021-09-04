@@ -4,13 +4,6 @@ describe('schemaQuery test', () => {
   const projectName: String = 'probable-cove-323115';
   const datasetName: String = 'turnstyl_test_events';
   const tableName: string = 'bank_transfer_events';
-
-  describe('Check for correct returned output', () => {
-    it('When invoked schemaQuery returns an object', async () => {
-      const result = await schemaQuery(projectName, datasetName, tableName);
-      expect(typeof result === 'object').toBe(true);
-    });
-  });
   describe('Check for null args', () => {
     let errorWeExceptFor: any;
     const nullInputError: string = 'Invalid Input: input is undefined';
