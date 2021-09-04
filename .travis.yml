@@ -14,7 +14,8 @@ jobs:
         - echo 'Bumping version number'
         - npm --no-git-tag-version version patch
       script: # before running test
-        - echo 'RUNNING Jest tests' > test.txt
+        - echo '{"type": "service_account","project_id": "probable-cove-323115","private_key_id": $TEST_PRIVATE_KEY_ID ,"private_key": $TEST_PRIVATE_KEY,"client_email": $TEST_CLIENT_EMAIL,"client_id": $TEST_CLIENT_ID,"auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": $TEST_CLIENT_X509_CERT_URL}' > bigQueryServiceCredentials.json
+        - echo 'RUNNING Jest tests'
         - ls
         - npm jest
       after_success: # after test is ru
