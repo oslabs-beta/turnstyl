@@ -2,23 +2,23 @@ language: node_js
 node_js:
   - '14.17.0'
 
-before_deploy: echo 'Travis CI starting up!!!'
+before_deploy: echo '🚧 Travis CI starting up!!!'
 
 jobs:
   include:
     - stage: testing
       if: branch in (main, dev)
       before_install: # before npm install
-        - echo 'INSTALLING npm packages'
+        - echo '⬇️ INSTALLING npm packages'
         - npm install
-        - echo 'Bumping version number'
+        - echo '🔼 Bumping version number'
         - npm --no-git-tag-version version patch
       script: # before running test
-        - echo 'RUNNING Jest tests'
+        - echo '🃏 RUNNING Jest tests'
         - npm test
       after_success: # after test is ru
-        - echo 'Travis CI checks and Jest tests have passed!!'
-        - echo 'Deploying to NPM'
+        - echo '✅ Travis CI checks and Jest tests have passed!!'
+        - echo '🛰 Deploying to NPM'
       deploy:
         on:
           branch: dev
