@@ -70,6 +70,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
     let dbPayload;
     if (integrationTestingFlag) {
       dbPayload = userConfig['testPayload'];
+      console.log(dbPayload);
     } else {
       dbPayload = await schemaQuery(
         // Temporary fix semi-hardcoding until longer term strategy put in place
