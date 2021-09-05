@@ -1,8 +1,6 @@
-const { BigQuery } = require('@google-cloud/bigquery');
+import { BigQuery } from '@google-cloud/bigquery';
 const bigquery = new BigQuery();
-const fs = require('fs');
-const path = require('path');
-const { configInitializer } = require('./configInitializer');
+import { configInitializer } from './configInitializer';
 
 const userConfig = configInitializer();
 
