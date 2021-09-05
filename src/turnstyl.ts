@@ -68,9 +68,9 @@ const Turnstyl = function (this: typeof Turnstyl) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
     let dbPayload;
+    console.log(integrationTestingFlag());
     if (integrationTestingFlag()) {
-      let { deconstrutedPayload } = userConfig['testPayload'];
-      dbPayload = deconstrutedPayload;
+      dbPayload = userConfig['testPayload'];
       console.log(dbPayload.payload);
       console.log(dbPayload['payload']);
       console.log(dbPayload);
