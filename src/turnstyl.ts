@@ -67,13 +67,15 @@ const Turnstyl = function (this: typeof Turnstyl) {
   ) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
+    let dbPayload;
     if (integrationTestingFlag()) {
-      let { dbPayload } = userConfig['testPayload'];
+      let { deconstrutedPayload } = userConfig['testPayload'];
+      dbPayload = deconstrutedPayload;
       console.log(dbPayload.payload);
       console.log(dbPayload['payload']);
       console.log(dbPayload);
     } else {
-      let dbPayload = await schemaQuery(
+      dbPayload = await schemaQuery(
         // Temporary fix semi-hardcoding until longer term strategy put in place
         userConfig['big_query_project_name'],
         userConfig['big_query_dataset_name'],
