@@ -1,6 +1,6 @@
-import { BigQuery } from '@google-cloud/bigquery';
+const { BigQuery } = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
-import { configInitializer } from './configInitializer';
+const { configInitializer } = require('./configInitializer');
 
 const userConfig = configInitializer();
 
@@ -20,7 +20,7 @@ const schemaQuery = async (
     if (!projectName || !datasetName || !tableName) throw 'undefined';
     if (datasetName === '' || datasetName === '' || tableName === '')
       throw 'an empty string';
-    const query = `
+    const query: string = `
       SELECT payload
       FROM ${projectName}.${datasetName}.${tableName}
       ORDER BY insertion_timestamp

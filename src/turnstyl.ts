@@ -1,6 +1,9 @@
-import { schemaQuery } from './schemaQuery';
-import { integrationTestingFlag } from './integrationTestingFlag';
-import { configInitializer } from './configInitializer';
+import { TestResult } from '@jest/types';
+import { object } from 'is';
+const { schemaQuery } = require('./schemaQuery');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
+const fs = require('fs');
+const { configInitializer } = require('./configInitializer');
 
 const userConfig = configInitializer();
 
@@ -38,9 +41,9 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @returns <Object> event Object that is being sent to Kafka
    */
   this.jsonDatatypeParser = function (obj: object) {
-    if (obj === null) console.log('🤷‍♂️ Obj is undefined');
-    const schema = {};
-    for (const key in obj) {
+    if (obj === null) console.log('Obj is undefined');
+    let schema = {};
+    for (let key in obj) {
       if (typeof obj[key] == 'object') {
         schema[key] = this.jsonDatatypeParser(obj[key]);
       } else {
@@ -64,7 +67,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
     let dbPayload;
-    // Embed integration test flag so we draw a from config file during integration tests
+    // Embed integration test flag so we draw a from config file during integration
     if (integrationTestingFlag()) {
       dbPayload = userConfig['testPayload'];
     } else {
@@ -77,7 +80,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
       dbPayload = dbPayload.payload;
     }
     // extract msg data and parse into an object as appropriate
-    isTyped ? dbPayload : (dbPayload = JSON.parse(dbPayload));
+    isTyped ? (dbPayload = dbPayload) : (dbPayload = JSON.parse(dbPayload));
     try {
       // Stringify both the producer object and database payload
       if (isTyped) {
