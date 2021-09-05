@@ -31,8 +31,7 @@
     "@tsconfig/node12": "^1.0.9",
     "@types/node": "^16.7.1",
     "app-root-path": "^3.0.0",
-    "js-yaml": "^4.1.0",
-    "tsc": "^2.0.3"
+    "js-yaml": "^4.1.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.15.0",
