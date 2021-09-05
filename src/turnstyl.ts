@@ -68,10 +68,11 @@ const Turnstyl = function (this: typeof Turnstyl) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
     let dbPayload;
-    console.log(producerSchema);
     if (integrationTestingFlag()) {
       dbPayload = userConfig['testPayload'];
       console.log(dbPayload.payload);
+      console.log(dbPayload['payload']);
+      console.log(dbPayload);
     } else {
       dbPayload = await schemaQuery(
         // Temporary fix semi-hardcoding until longer term strategy put in place
