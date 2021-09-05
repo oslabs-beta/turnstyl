@@ -4,6 +4,7 @@ const { schemaQuery } = require('./schemaQuery');
 const fs = require('fs');
 const path = require('path');
 const { configInitializer } = require('./configInitializer');
+require('dotenv').config();
 
 const userConfig = configInitializer();
 
@@ -66,6 +67,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
   ) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
+    console.log(process.env);
     let dbPayload = await schemaQuery(
       // Temporary fix semi-hardcoding until longer term strategy put in place
       userConfig['big_query_project_name'],
