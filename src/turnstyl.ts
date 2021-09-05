@@ -68,6 +68,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
     let dbPayload;
+    // Embed integration test flag so we draw a from config file during integration tests
     if (integrationTestingFlag()) {
       dbPayload = userConfig['testPayload'];
     } else {
