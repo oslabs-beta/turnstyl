@@ -78,6 +78,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
         userConfig['big_query_dataset_name'],
         topicID
       );
+      dbPayload = dbPayload.payload;
     }
     // extract msg data and parse into an object as appropriate
     isTyped ? (dbPayload = dbPayload) : (dbPayload = JSON.parse(dbPayload));
