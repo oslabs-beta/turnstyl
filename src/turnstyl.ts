@@ -1,6 +1,5 @@
-import { TestResult } from "@jest/types";
-import { object } from "is";
-
+import { TestResult } from '@jest/types';
+import { object } from 'is';
 const { schemaQuery } = require('./schemaQuery');
 const fs = require('fs');
 const path = require('path');
@@ -61,40 +60,45 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param isTyped <boolean> True if topicID explicitly consists of typed schema, defaults to false for standard data request
    * @returns nothing
    */
-  this.compareProducerToDBSchema = async function (topicID: string, isTyped: boolean = false) {
+  this.compareProducerToDBSchema = async function (
+    topicID: string,
+    isTyped: boolean = false
+  ) {
     // fetch updated schema from DB
-    let producerSchema = this.schemaCache[topicID];
+    const producerSchema = this.schemaCache[topicID];
     let dbPayload = await schemaQuery(
       // Temporary fix semi-hardcoding until longer term strategy put in place
       userConfig['big_query_project_name'],
-      userConfig['big_query_data_set_name'],
+      userConfig['big_query_dataset_name'],
       topicID
     );
     // extract msg data and parse into an object as appropriate
-    isTyped ? dbPayload = dbPayload.payload : dbPayload = JSON.parse(dbPayload.payload);
+    isTyped
+      ? (dbPayload = dbPayload.payload)
+      : (dbPayload = JSON.parse(dbPayload.payload));
     try {
       // Stringify both the producer object and database payload
-      if (isTyped){
+      if (isTyped) {
         if (JSON.stringify(producerSchema) !== dbPayload) {
-          throw 'The database payload and producer event do not match on schema check';
+          throw '❌ The database payload and producer event do not match on schema check';
         } else {
-          console.log('No issues detected');
+          console.log('✅ No issues detected');
         }
       } else {
-        // check the keys of each and note any mismatch 
+        // check the keys of each and note any mismatch
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
-          throw 'The database payload and producer event have a field (key) mistmatch';
+          throw '❌ The database payload and producer event have a field (key) mistmatch';
         } else {
-          console.log('No issues detected');
+          console.log('✅ No issues detected');
         }
       }
     } catch (err) {
-      console.log('Mismatch detected: ', err);
+      console.log('❌ Mismatch detected: ', err);
     }
   };
 
-  //## Helper Methods ## 
-/**
+  //## Helper Methods ##
+  /**
    * @method deepCompareKeys
    * @param object1 <object> Schema pair for comparison
    * @param object2 <object> Second Schema for comparison
@@ -102,34 +106,37 @@ const Turnstyl = function (this: typeof Turnstyl) {
    */
   // traverse keys of both schemas and return false upon mismatch
   this.deepCompareKeys = function (object1: object, object2: object) {
-    // base case - nulls 
-    if(object1 === null && object2 === null){
+    // base case - nulls
+    if (object1 === null && object2 === null) {
       return true;
-    } 
+    }
     // get the keys at his level for both
     let keys1, keys2;
-    object1 !== null ? keys1 = Object.keys(object1) : keys1 = [];
-    object2 !== null ? keys2 = Object.keys(object2) : keys2 = [];
+    object1 !== null ? (keys1 = Object.keys(object1)) : (keys1 = []);
+    object2 !== null ? (keys2 = Object.keys(object2)) : (keys2 = []);
 
     //check if they have differing lengths
-    if (keys1.length !== keys2.length ) return false;
+    if (keys1.length !== keys2.length) return false;
 
     //since they have same length, iterate through
-    for (let i = 0; i < keys1.length; i++){
-
-      if (keys1[i] !== keys2[i] || typeof(object1[keys1[i]]) !== typeof(object2[keys2[i]])) {
+    for (let i = 0; i < keys1.length; i++) {
+      if (
+        keys1[i] !== keys2[i] ||
+        typeof object1[keys1[i]] !== typeof object2[keys2[i]]
+      ) {
         return false; // nesting mismatch
-      }  
-      if (typeof(object1[keys1[i]]) === 'object' && typeof(object2[keys2[i]]) === 'object'){
-        if(!this.deepCompareKeys(object1[keys1[i]],object2[keys2[i]])){
+      }
+      if (
+        typeof object1[keys1[i]] === 'object' &&
+        typeof object2[keys2[i]] === 'object'
+      ) {
+        if (!this.deepCompareKeys(object1[keys1[i]], object2[keys2[i]])) {
           return false;
         }
-      } 
+      }
     }
-  return true;
+    return true;
   };
-
 };
 
 export { Turnstyl };
-
