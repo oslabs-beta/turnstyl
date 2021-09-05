@@ -1,10 +1,10 @@
 import { TestResult } from '@jest/types';
 import { object } from 'is';
 const { schemaQuery } = require('./schemaQuery');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
 const fs = require('fs');
 const path = require('path');
 const { configInitializer } = require('./configInitializer');
-require('dotenv').config();
 
 const userConfig = configInitializer();
 
@@ -67,13 +67,17 @@ const Turnstyl = function (this: typeof Turnstyl) {
   ) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
-    console.log(process.env);
-    let dbPayload = await schemaQuery(
-      // Temporary fix semi-hardcoding until longer term strategy put in place
-      userConfig['big_query_project_name'],
-      userConfig['big_query_dataset_name'],
-      topicID
-    );
+    let dbPayload;
+    if (integrationTestingFlag) {
+      dbPayload = userConfig['testPayload'];
+    } else {
+      dbPayload = await schemaQuery(
+        // Temporary fix semi-hardcoding until longer term strategy put in place
+        userConfig['big_query_project_name'],
+        userConfig['big_query_dataset_name'],
+        topicID
+      );
+    }
     // extract msg data and parse into an object as appropriate
     isTyped
       ? (dbPayload = dbPayload.payload)
