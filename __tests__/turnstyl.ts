@@ -178,6 +178,7 @@ describe('Turnstyl test', () => {
 
     it('Turnstyl.compareProducerToDBSchema when invoked compares the db payload to the event', async () => {
       await turnstylTestClass.cacheProducerEvent(testTopic, testMessage);
+      console.log('✅ Invokes cacheProducerEvent');
       try {
         const result = await turnstylTestClass.compareProducerToDBSchema(
           testTopic
