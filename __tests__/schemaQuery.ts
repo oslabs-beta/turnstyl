@@ -1,15 +1,15 @@
-const { schemaQuery } = require('../src/schemaQuery.ts');
+import { schemaQuery } from '../src/schemaQuery';
 
 describe('schemaQuery test', () => {
-  const projectName: String = 'probable-cove-323115';
-  const datasetName: String = 'turnstyl_test_events';
-  const tableName: string = 'bank_transfer_events';
+  const projectName = 'probable-cove-323115';
+  const datasetName = 'turnstyl_test_events';
+  const tableName = 'bank_transfer_events';
   describe('Check for null args', () => {
     let errorWeExceptFor: any;
-    const nullInputError: string = 'Invalid Input: input is undefined';
+    const nullInputError = 'Invalid Input: input is undefined';
     it('When null projectName input it throws a missing val error', async () => {
       try {
-        const result = await schemaQuery(null, datasetName, tableName);
+        await schemaQuery(null, datasetName, tableName);
       } catch (error) {
         expect(error).toEqual(nullInputError);
         errorWeExceptFor = error;
@@ -21,7 +21,7 @@ describe('schemaQuery test', () => {
 
     it('When null datasetName input it throws a missing val error', async () => {
       try {
-        const result = await schemaQuery(projectName, null, tableName);
+        await schemaQuery(projectName, null, tableName);
       } catch (error) {
         expect(error).toEqual(nullInputError);
         errorWeExceptFor = error;
@@ -33,7 +33,7 @@ describe('schemaQuery test', () => {
 
     it('When null tableName input it throws a missing val error', async () => {
       try {
-        const result = await schemaQuery(projectName, datasetName, null);
+        await schemaQuery(projectName, datasetName, null);
       } catch (error) {
         expect(error).toEqual(nullInputError);
         errorWeExceptFor = error;
@@ -46,11 +46,11 @@ describe('schemaQuery test', () => {
 
   describe('Check for empty args', () => {
     let errorWeExceptFor: any;
-    const emptyStringError: string = 'Invalid Input: input is an empty string';
+    const emptyStringError = 'Invalid Input: input is an empty string';
 
     it('When empty projectName it throws an empty string error', async () => {
       try {
-        const result = await schemaQuery('', datasetName, tableName);
+        await schemaQuery('', datasetName, tableName);
       } catch (error) {
         expect(error).toEqual(emptyStringError);
         errorWeExceptFor = error;
@@ -62,7 +62,7 @@ describe('schemaQuery test', () => {
 
     it('When empty datasetName it throws an empty string error', async () => {
       try {
-        const result = await schemaQuery(projectName, '', tableName);
+        await schemaQuery(projectName, '', tableName);
       } catch (error) {
         expect(error).toEqual(emptyStringError);
         errorWeExceptFor = error;
@@ -74,7 +74,7 @@ describe('schemaQuery test', () => {
 
     it('When empty tableName it throws an empty string error', async () => {
       try {
-        const result = await schemaQuery(projectName, datasetName, '');
+        await schemaQuery(projectName, datasetName, '');
       } catch (error) {
         expect(error).toEqual(emptyStringError);
         errorWeExceptFor = error;
