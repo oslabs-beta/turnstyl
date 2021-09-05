@@ -71,9 +71,6 @@ const Turnstyl = function (this: typeof Turnstyl) {
     console.log(integrationTestingFlag());
     if (integrationTestingFlag()) {
       dbPayload = userConfig['testPayload'];
-      console.log(dbPayload.payload);
-      console.log(dbPayload['payload']);
-      console.log(dbPayload);
     } else {
       dbPayload = await schemaQuery(
         // Temporary fix semi-hardcoding until longer term strategy put in place
@@ -83,9 +80,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
       );
     }
     // extract msg data and parse into an object as appropriate
-    isTyped
-      ? (dbPayload = dbPayload.payload)
-      : (dbPayload = JSON.parse(dbPayload.payload));
+    isTyped ? (dbPayload = dbPayload) : (dbPayload = JSON.parse(dbPayload));
     try {
       // Stringify both the producer object and database payload
       if (isTyped) {
