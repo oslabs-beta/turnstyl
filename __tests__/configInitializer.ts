@@ -4,7 +4,7 @@ describe('configInitializer test', () => {
   describe('Check for correct returned data type', () => {
     it('When invoked it returns an object', async () => {
       const result = await configInitializer();
-      console.log(result);
+      expect(typeof result === 'object').toBe(true);
     });
   });
 
