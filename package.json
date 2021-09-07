@@ -1,0 +1,47 @@
+{
+  "name": "turnstyl",
+  "version": "0.1.10",
+  "description": "Turnstyl is an NPM package built to work with Kafka to allow you to compare the data schema input at the producer level to what arrives into your data warehouse.",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "files": [
+    "lib/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "jest",
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublishOnly": "npm run tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/turnstyl.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/turnstyl/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/turnstyl#readme",
+  "dependencies": {
+    "@google-cloud/bigquery": "^5.8.0",
+    "@jest/types": "^27.1.0",
+    "@tsconfig/node12": "^1.0.9",
+    "@types/node": "^16.7.1",
+    "app-root-path": "^3.0.0",
+    "dotenv": "^10.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2"
+  }
+}
