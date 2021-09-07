@@ -4,3 +4,5 @@ rules:
 google_service_credentials: './bigQueryServiceCredentials.json'
 big_query_project_name: 'probable-cove-323115'
 big_query_dataset_name: 'turnstyl_test_events'
+testPayload: >
+  {"event_id":"97150fc1-b2ff-47e8-9750-0b3f7fdafb88","eventTimstamp":"2028-12-05T13:06:59.173Z","eventName":"bank_transfer_transactions","senderName":"Ginger Mann","senderAccount":"61237038","senderAccountName":"Money Market Account","receiverName":"Mrs. Janet Bechtelar","receiverAccount":"99618961","receiverAccountName":"Auto Loan Account","transactionDesc":"invoice transaction at Crooks, Ziemann and Funk using card ending with ***2546 for EUR 747.81 in account ***82078454","transaction_type":"deposit","amount":"756.95","currency":"Naira","curencyCode":"BSD"}
