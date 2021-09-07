@@ -1,3 +1,5 @@
+# DELETE ME - DON'T FORGET TO BUMP THE NPM PACKAGE NUMBER
+
 ### Summary
 
 _What's the summary of your pull request? What problem are you solving or feature you are implementing? (e.g. Altered the backend to add POST functionality)_
