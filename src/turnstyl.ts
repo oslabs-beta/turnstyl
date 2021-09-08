@@ -30,8 +30,8 @@ let logger = winston.createLogger({
 
 const userConfig = configInitializer();
 
-const Turnstyl = function (this: typeof Turnstyl) {
-  this.schemaCache = {};
+class Turnstyl {
+  schemaCache = {};
 
   // Stores schema of producer event and the target topic
   /**
@@ -40,10 +40,10 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param event <Object> event Object that is being sent to Kafka
    * @returns nothing
    */
-  this.cacheProducerEvent = async function (topicID: string, event: object) {
+  async cacheProducerEvent(topicID: string, event: object) {
     // set to overwrite by default, always takes most recent schema
     this.schemaCache[topicID] = this.extractSchema(event);
-  };
+  }
 
   // Take evaluated result of jsonDatatypeParser and pass back to parent function
   // Note - I assume there was some strong logic regarding why don't call jsonDatatypeParser directly in the parent func
@@ -52,10 +52,10 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param event <Object> event Object that is being sent to Kafka
    * @returns nothing
    */
-  this.extractSchema = function (event: object) {
+  extractSchema(event: object) {
     const schema = this.jsonDatatypeParser(event);
     return schema;
-  };
+  }
 
   // Method that converts a JSON object into a nested object
   /**
@@ -63,7 +63,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param obj <Object> raw event object
    * @returns <Object> event Object that is being sent to Kafka
    */
-  this.jsonDatatypeParser = function (obj: object) {
+  jsonDatatypeParser(obj: object) {
     if (obj === null) console.log("Obj is undefined");
     let schema = {};
     for (let key in obj) {
@@ -74,7 +74,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
       }
     }
     return schema;
-  };
+  }
 
   // Recursively traverse and compare schemaCache, throws error if there is a mismatch
   /**
@@ -83,10 +83,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param isTyped <boolean> True if topicID explicitly consists of typed schema, defaults to false for standard data request
    * @returns nothing
    */
-  this.compareProducerToDBSchema = async function (
-    topicID: string,
-    isTyped: boolean = false
-  ) {
+  async compareProducerToDBSchema(topicID: string, isTyped: boolean = false) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
     let dbPayload;
@@ -132,7 +129,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
     } catch (err) {
       logger.error(`Mismatch detected: ${err}`);
     }
-  };
+  }
   //## Helper Methods ##
   /**
    * @method deepCompareKeys
@@ -141,7 +138,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @returns <boolean>
    */
   // traverse keys of both schemas and return false upon mismatch
-  this.deepCompareKeys = function (object1: object, object2: object) {
+  deepCompareKeys(object1: object, object2: object) {
     // base case - nulls
     if (object1 === null && object2 === null) {
       return true;
@@ -172,7 +169,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
       }
     }
     return true;
-  };
-};
+  }
+}
 
 export { Turnstyl };
