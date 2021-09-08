@@ -1,6 +1,6 @@
 {
   "name": "turnstyl",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "Turnstyl is an NPM package built to work with Kafka to allow you to compare the data schema input at the producer level to what arrives into your data warehouse.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

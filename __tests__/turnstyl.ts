@@ -186,7 +186,7 @@ describe('Turnstyl test', () => {
         );
       } catch (error) {
         expect(error).toEqual(
-          '❌ Mismatch detected: The database payload and producer event do not match'
+          'Mismatch detected:❌ The database payload and producer event do not match'
         );
       }
     });
