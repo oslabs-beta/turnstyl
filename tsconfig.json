@@ -12,7 +12,8 @@
     "index.ts",
     "./src/turnstyl.ts",
     "./src/schemaQuery.ts",
-    "./src/configInitializer.ts"
+    "./src/configInitializer.ts",
+    "./src/integrationTestingFlag.ts"
   ],
   "exclude": ["node_modules"]
 }
