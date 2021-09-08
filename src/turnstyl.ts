@@ -1,13 +1,23 @@
 import { TestResult } from '@jest/types';
 import { object } from 'is';
 const { schemaQuery } = require('./schemaQuery');
-const { integrationTestingFlag } = require('./integrationTestingFlag');
 const fs = require('fs');
-const { configInitializer } = require('./configInitializer');
 const winston = require('winston');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
+const { configInitializer } = require('./configInitializer');
 
 // Winston instance
 let logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'HH:mm:ss MM-DD-YY' }),
+    winston.format.printf((info) =>
+      JSON.stringify({
+        timestamp: info.timestamp,
+        level: info.level,
+        message: info.message,
+      })
+    )
+  ),
   transports: [
     // Log routing & logging for level `error`
     new winston.transports.Console({
@@ -97,10 +107,16 @@ class Turnstyl {
         userConfig['big_query_dataset_name'],
         topicID
       );
+      // console.log(JSON.parse(dbPayload), 'dbPayload');
       dbPayload = dbPayload.payload;
+      console.log(producerSchema, 'producerSchema');
+      console.log(dbPayload, 'dbPayload');
     }
     // extract msg data and parse into an object as appropriate
-    isTyped ? (dbPayload = dbPayload) : (dbPayload = JSON.parse(dbPayload));
+
+    if (!isTyped) {
+      dbPayload = JSON.parse(dbPayload);
+    }
     try {
       // Stringify both the producer object and database payload
       if (isTyped) {
