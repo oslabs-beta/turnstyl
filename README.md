@@ -1,11 +1,12 @@
 <p align="center">
-![Turnstyl](https://raw.githubusercontent.com/oslabs-beta/turnstyl/main/assets/turnstile-logo-softwhite-v3-a.png)
+<img align="center" src="https://raw.githubusercontent.com/oslabs-beta/turnstyl/main/assets/turnstile-logo-softwhite-v3-a.png">
+<p align="center">
+  <img alt="npm version" src="https://img.shields.io/npm/v/turnstyl" />
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/turnstyl" />
+  <img alt="Github stars" src="https://shields.io/github/stars/oslabs-beta/turnstyle" />
+  <img alt="Snyk" src="https://snyk.io/advisor/npm-package/turnstyl/badge.svg" href='https://snyk.io/advisor/npm-package/turnstyl' />
+</p>
 
-![npm version](https://img.shields.io/npm/v/turnstyl)
-![last commit](https://img.shields.io/github/last-commit/oslabs-beta/turnstyl)
-![Github stars](https://shields.io/github/stars/oslabs-beta/turnstyl)
-[![turnstyl](https://snyk.io/advisor/npm-package/turnstyl/badge.svg)](https://snyk.io/advisor/npm-package/turnstyl)
-  </p>
 
 Turnstyl is an NPM package built to work with Kafka and Google Big Query to allow you to compare the data schema input at the producer level to what arrives into your data warehouse.
 
@@ -110,13 +111,25 @@ export { producer };
 ## 🏭 Supported Data Warehouses
 - Google Big Query
 
+## 🚗 Roadmap
+
+[Head to our roadmap](https://homespot.notion.site/330ba936328b488e86e6d7395003518b?v=0ae19b46612b43f69630e4cd60a0b0a0) to see our upcoming planned features
+
 ## 👍 Contribute
 
 Want to contribute to Turnstyl? Head over to our [contribution page](https://github.com/oslabs-beta/turnstyl/blob/main/contributing.md)
 
 ### Contributors:
 
-[Jae Kim](https://github.com/jaeklm) | [Yolan Arnett](https://github.com/yarnett) | [Dillon Schriver](https://github.com/Dillon-Schriver) | [Emeric David](https://github.com/emeric-gh) | [Michael Colley](https://github.com/michaelecolley)
+[Jae Kim](https://github.com/jaeklm) - [LinkedIn](https://www.linkedin.com/in/jaeklm/) 
+
+[Yolan Arnett](https://github.com/yarnett) - [LinkedIn](https://www.linkedin.com/in/yolanarnett/)
+
+[Dillon Schriver](https://github.com/Dillon-Schriver) - [LinkedIn](https://www.linkedin.com/in/dillon-schriver-236a16bb/)
+
+[Emeric David](https://github.com/emeric-gh) - [LinkedIn](https://www.linkedin.com/in/emericbdavid/)
+
+[Michael Colley](https://github.com/michaelecolley) - [LinkedIn](https://www.linkedin.com/in/michaelecolley/) - [Twitter](https://twitter.com/michaelecolley)
 
 If you'd like to support the active development of Turnstyl:
 - Add a GitHub Star to the project
