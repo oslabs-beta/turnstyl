@@ -13,7 +13,6 @@ The aim of Turnstyl is to monitor and notify the user of data validity issues in
 ## ✅ Pre-requisites
 
 To run this package you'll need to have:
-
 - A working instance of Kafka or equivalent message broker
 - Be setup and using Google BigQuery as your data warehouse
 - Have activated the Google API and setup a [service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
@@ -21,7 +20,6 @@ To run this package you'll need to have:
 ## 🚀 QuickStart
 
 Getting started with Turntstyl is easy:
-
 1. In your terminal run `npm install turnstyl` in your target project directory
 2. Create a `turnstyl.config.yaml` in your project root directory, using the template below to input your Google Big Query project and dataset names, and the path to your Google API service account credentials JSON.
 
@@ -47,7 +45,6 @@ big_query_dataset_name: 'BIG_QUERY_DATASET_NAME'
 - `newTurnstyl.compareProducerToDBSchema(topic);` - Compares the events that have arrived into Big Query (assuming the topic name matches your target table) flagging if there is a discrepancy between the two.
 
 ## ✨ Features
-
 - Compare data object processed by the producer to the JSON deposited in the data warehouse
 - Integration with Google Cloud Platform (Big Query)
 
@@ -106,13 +103,10 @@ export { producer };
 ```
 
 ## 🏭 Supported Message brokers
-
-
 - Apache Kafka
 
 
 ## 🏭 Supported Data Warehouses
-
 - Google Big Query
 
 ## 👍 Contribute
@@ -124,7 +118,6 @@ Want to contribute to Turnstyl? Head over to our [contribution page](https://git
 [Jae Kim](https://github.com/jaeklm) | [Yolan Arnett](https://github.com/yarnett) | [Dillon Schriver](https://github.com/Dillon-Schriver) | [Emeric David](https://github.com/emeric-gh) | [Michael Colley](https://github.com/michaelecolley)
 
 If you'd like to support the active development of Turnstyl:
-
 - Add a GitHub Star to the project
 - Tweet about the project on your Twitter.
 - Write a review or tutorial on Medium, Dev.to or personal blog.
