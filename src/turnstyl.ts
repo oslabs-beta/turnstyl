@@ -1,13 +1,23 @@
 import { TestResult } from '@jest/types';
 import { object } from 'is';
 const { schemaQuery } = require('./schemaQuery');
-const { integrationTestingFlag } = require('./integrationTestingFlag');
 const fs = require('fs');
-const { configInitializer } = require('./configInitializer');
 const winston = require('winston');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
+const { configInitializer } = require('./configInitializer');
 
 // Winston instance
 let logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'HH:mm:ss MM-DD-YY' }),
+    winston.format.printf((info) =>
+      JSON.stringify({
+        timestamp: info.timestamp,
+        level: info.level,
+        message: info.message,
+      })
+    )
+  ),
   transports: [
     // Log routing & logging for level `error`
     new winston.transports.Console({
@@ -64,7 +74,7 @@ class Turnstyl {
    * @returns <Object> event Object that is being sent to Kafka
    */
   jsonDatatypeParser(obj: object) {
-    if (obj === null) console.log('Obj is undefined');
+    if (obj === null) logger.error('❌ Obj is undefined');
     let schema = {};
     for (let key in obj) {
       if (typeof obj[key] == 'object') {
@@ -100,16 +110,16 @@ class Turnstyl {
       dbPayload = dbPayload.payload;
     }
     // extract msg data and parse into an object as appropriate
-    isTyped ? (dbPayload = dbPayload) : (dbPayload = JSON.parse(dbPayload));
+
+    if (!isTyped) {
+      dbPayload = JSON.parse(dbPayload);
+    }
     try {
       // Stringify both the producer object and database payload
       if (isTyped) {
         if (JSON.stringify(producerSchema) !== dbPayload) {
           logger.error({
-            message:
-              'The database payload and producer event do not match on schema check' +
-              ' for topic: ' +
-              topicID,
+            message: `❌ The database payload and producer event do not match on schema check for topic: ${topicID}`,
           });
         } else {
           logger.info('✅ No issues detected');
@@ -119,8 +129,7 @@ class Turnstyl {
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
           // add to log file when theres error
           logger.error(
-            `The database payload and producer event have a field (key) mistmatch
-               for topic: ${topicID}`
+            `❌ The database payload and producer event have a field (key) mistmatch for topic: ${topicID}`
           );
         } else {
           logger.info('✅ No issues detected');
