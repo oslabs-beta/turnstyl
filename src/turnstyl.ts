@@ -1,29 +1,29 @@
-import { TestResult } from "@jest/types";
-import { object } from "is";
-const { schemaQuery } = require("./schemaQuery");
-const { integrationTestingFlag } = require("./integrationTestingFlag");
-const fs = require("fs");
-const { configInitializer } = require("./configInitializer");
-const winston = require("winston");
+import { TestResult } from '@jest/types';
+import { object } from 'is';
+const { schemaQuery } = require('./schemaQuery');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
+const fs = require('fs');
+const { configInitializer } = require('./configInitializer');
+const winston = require('winston');
 
 // Winston instance
 let logger = winston.createLogger({
   transports: [
     // Log routing & logging for level `error`
     new winston.transports.Console({
-      level: "error",
+      level: 'error',
     }),
     new winston.transports.File({
-      level: "error",
-      filename: "./logs/error.log",
+      level: 'error',
+      filename: './logs/error.log',
     }),
     // Log routing & logging for level `info`
     new winston.transports.Console({
-      level: "info",
+      level: 'info',
     }),
     new winston.transports.File({
-      level: "info",
-      filename: "./logs/info.log",
+      level: 'info',
+      filename: './logs/info.log',
     }),
   ],
 });
@@ -64,10 +64,10 @@ class Turnstyl {
    * @returns <Object> event Object that is being sent to Kafka
    */
   jsonDatatypeParser(obj: object) {
-    if (obj === null) console.log("Obj is undefined");
+    if (obj === null) console.log('❌ Obj is undefined');
     let schema = {};
     for (let key in obj) {
-      if (typeof obj[key] == "object") {
+      if (typeof obj[key] == 'object') {
         schema[key] = this.jsonDatatypeParser(obj[key]);
       } else {
         schema[key] = typeof obj[key];
@@ -89,12 +89,12 @@ class Turnstyl {
     let dbPayload;
     // Embed integration test flag so we draw a from config file during integration
     if (integrationTestingFlag()) {
-      dbPayload = userConfig["testPayload"];
+      dbPayload = userConfig['testPayload'];
     } else {
       dbPayload = await schemaQuery(
         // Temporary fix semi-hardcoding until longer term strategy put in place
-        userConfig["big_query_project_name"],
-        userConfig["big_query_dataset_name"],
+        userConfig['big_query_project_name'],
+        userConfig['big_query_dataset_name'],
         topicID
       );
       dbPayload = dbPayload.payload;
@@ -107,23 +107,23 @@ class Turnstyl {
         if (JSON.stringify(producerSchema) !== dbPayload) {
           logger.error({
             message:
-              "The database payload and producer event do not match on schema check" +
-              " for topic: " +
+              '❌ The database payload and producer event do not match on schema check' +
+              ' for topic: ' +
               topicID,
           });
         } else {
-          logger.info("✅ No issues detected");
+          logger.info('✅ No issues detected');
         }
       } else {
         // check the keys of each and note any mismatch
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
           // add to log file when theres error
           logger.error(
-            `The database payload and producer event have a field (key) mistmatch
+            `❌ The database payload and producer event have a field (key) mistmatch
                for topic: ${topicID}`
           );
         } else {
-          logger.info("✅ No issues detected");
+          logger.info('✅ No issues detected');
         }
       }
     } catch (err) {
@@ -160,8 +160,8 @@ class Turnstyl {
         return false; // nesting mismatch
       }
       if (
-        typeof object1[keys1[i]] === "object" &&
-        typeof object2[keys2[i]] === "object"
+        typeof object1[keys1[i]] === 'object' &&
+        typeof object2[keys2[i]] === 'object'
       ) {
         if (!this.deepCompareKeys(object1[keys1[i]], object2[keys2[i]])) {
           return false;
