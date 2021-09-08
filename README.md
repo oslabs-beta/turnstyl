@@ -1,4 +1,4 @@
-![Turnstyl](./assets/turnstile-logo-softwhite-v3-a.png)
+![Turnstyl](./assets/turnstile-logo-v2-a.png)
 
 Turnstyl is an NPM package built to work with Kafka to allow you to compare the data schema input at the producer level to what arrives into your data warehouse.
 
