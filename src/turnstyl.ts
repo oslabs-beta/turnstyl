@@ -119,10 +119,7 @@ class Turnstyl {
       if (isTyped) {
         if (JSON.stringify(producerSchema) !== dbPayload) {
           logger.error({
-            message:
-              'The database payload and producer event do not match on schema check' +
-              ' for topic: ' +
-              topicID,
+            message: `❌ The database payload and producer event do not match on schema check for topic: ${topicID}`,
           });
         } else {
           logger.info('✅ No issues detected');
@@ -132,15 +129,14 @@ class Turnstyl {
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
           // add to log file when theres error
           logger.error(
-            `The database payload and producer event have a field (key) mistmatch
-               for topic: ${topicID}`
+            `❌ The database payload and producer event have a field (key) mistmatch for topic: ${topicID}`
           );
         } else {
           logger.info('✅ No issues detected');
         }
       }
     } catch (err) {
-      logger.error(`❌ Mismatch detected: ${err}`);
+      logger.error(`Mismatch detected: ${err}`);
     }
   }
   //## Helper Methods ##
