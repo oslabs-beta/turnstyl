@@ -1,4 +1,5 @@
 ![Turnstyl](https://github.com/oslabs-beta/turnstyl/blob/main/assets/turnstile-logo-softwhite-v3-a.png)
+
 ![npm version](https://img.shields.io/npm/v/turnstyl)
 ![last commit](https://img.shields.io/github/last-commit/oslabs-beta/turnstyl)
 ![Github stars](https://shields.io/github/stars/oslabs-beta/turnstyl)
