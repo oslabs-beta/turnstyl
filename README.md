@@ -1,4 +1,4 @@
-![Turnstyl](https://github.com/oslabs-beta/turnstyl/assets/turnstile-logo-softwhite-v3-a.png)
+![Turnstyl](https://github.com/oslabs-beta/turnstyl/blob/main/assets/turnstile-logo-softwhite-v3-a.png)
 ![npm version](https://img.shields.io/npm/v/turnstyl)
 ![last commit](https://img.shields.io/github/last-commit/oslabs-beta/turnstyl)
 ![Github stars](https://shields.io/github/stars/oslabs-beta/turnstyl)
@@ -114,7 +114,7 @@ export { producer };
 
 ## 👍 Contribute
 
-Want to contribute to Turnstyl? Head over to our [contribution page](https://github.com/oslabs-beta/turnstyl/contributing.md)
+Want to contribute to Turnstyl? Head over to our [contribution page](https://github.com/oslabs-beta/turnstyl/blob/main/contributing.md)
 
 ### Contributors:
 
