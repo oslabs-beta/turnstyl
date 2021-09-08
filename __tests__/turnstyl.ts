@@ -210,5 +210,39 @@ describe('Turnstyl test', () => {
       const result = turnstylTestClass.deepCompareKeys(testMessage, testNest);
       expect(result).toBe(false);
     });
+
+    it('Turrnstyl.deepCompareKeys correctly detects an example from the database', () => {
+      const dbPayload = {
+        event_id: '321574dc-2b12-4d86-933a-1f173d1fb51d',
+        eventTimestamp: '2024-06-28T15:42:48.870Z',
+        eventName: 'bank_transfer_transactions',
+        senderName: 'Kay Mante',
+        senderAccount: '19035200',
+        senderAccountName: 'Credit Card Account',
+        receiverName: 'Dr. Jill Ullrich',
+        receiverAccountName: 'Checking Account',
+        transactionDesc:
+          "deposit transaction at Jacobson, O'Reilly and Towne using card ending with ***8953 for THB 678.23 in account ***38313348",
+        amount: '918.94',
+        curencyCode: 'EGP',
+      };
+      const producerSchema = {
+        event_id: 'string',
+        eventTimestamp: {},
+        eventName: 'string',
+        senderName: 'string',
+        senderAccount: 'number',
+        senderAccountName: 'string',
+        receiverName: 'string',
+        receiverAccount: 'number',
+        receiverAccountName: 'string',
+        transactionDesc: 'string',
+        transaction_type: 'string',
+        amount: 'number',
+        currency: 'string',
+        curencyCode: 'string',
+      };
+      expect(turnstylTestClass.deepCompareKeys(producerSchema,dbPayload)).toBe(false);
+    });
   });
 });
