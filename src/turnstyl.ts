@@ -74,7 +74,7 @@ class Turnstyl {
    * @returns <Object> event Object that is being sent to Kafka
    */
   jsonDatatypeParser(obj: object) {
-    if (obj === null) console.log('❌ Obj is undefined');
+    if (obj === null) logger.error('❌ Obj is undefined');
     let schema = {};
     for (let key in obj) {
       if (typeof obj[key] == 'object') {
@@ -120,7 +120,7 @@ class Turnstyl {
         if (JSON.stringify(producerSchema) !== dbPayload) {
           logger.error({
             message:
-              '❌ The database payload and producer event do not match on schema check' +
+              'The database payload and producer event do not match on schema check' +
               ' for topic: ' +
               topicID,
           });
@@ -132,7 +132,7 @@ class Turnstyl {
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
           // add to log file when theres error
           logger.error(
-            `❌ The database payload and producer event have a field (key) mistmatch
+            `The database payload and producer event have a field (key) mistmatch
                for topic: ${topicID}`
           );
         } else {
@@ -140,7 +140,7 @@ class Turnstyl {
         }
       }
     } catch (err) {
-      logger.error(`Mismatch detected: ${err}`);
+      logger.error(`❌ Mismatch detected: ${err}`);
     }
   }
   //## Helper Methods ##
