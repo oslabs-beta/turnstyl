@@ -3,7 +3,7 @@
 <p align="center">
   <img alt="npm version" src="https://img.shields.io/npm/v/turnstyl" />
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/turnstyl" />
-  <img alt="Github stars" src="https://shields.io/github/stars/oslabs-beta/turnstyle" />
+  <img alt="Github stars" src="https://shields.io/github/stars/oslabs-beta/turnstyl" />
   <img alt="Snyk" src="https://snyk.io/advisor/npm-package/turnstyl/badge.svg" href='https://snyk.io/advisor/npm-package/turnstyl' />
 </p>
 
