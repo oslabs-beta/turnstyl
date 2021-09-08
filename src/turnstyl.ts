@@ -107,10 +107,7 @@ class Turnstyl {
         userConfig['big_query_dataset_name'],
         topicID
       );
-      // console.log(JSON.parse(dbPayload), 'dbPayload');
       dbPayload = dbPayload.payload;
-      console.log(producerSchema, 'producerSchema');
-      console.log(dbPayload, 'dbPayload');
     }
     // extract msg data and parse into an object as appropriate
 
