@@ -1,5 +1,5 @@
 <p align="center">
-![Turnstyl](https://github.com/oslabs-beta/turnstyl/blob/main/assets/turnstile-logo-softwhite-v3-a.png)
+![Turnstyl](https://github.com/oslabs-beta/turnstyl/blob/main/assets/turnstile-logo-softwhite-v3-a.png?raw=true)
 
 ![npm version](https://img.shields.io/npm/v/turnstyl)
 ![last commit](https://img.shields.io/github/last-commit/oslabs-beta/turnstyl)
