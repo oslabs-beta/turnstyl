@@ -1,11 +1,10 @@
 import { TestResult } from '@jest/types';
 import { object } from 'is';
-import { format } from 'path/posix';
 const { schemaQuery } = require('./schemaQuery');
-const { integrationTestingFlag } = require('./integrationTestingFlag');
 const fs = require('fs');
-const { configInitializer } = require('./configInitializer');
 const winston = require('winston');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
+const { configInitializer } = require('./configInitializer');
 
 // Winston instance
 let logger = winston.createLogger({
@@ -75,7 +74,7 @@ class Turnstyl {
    * @returns <Object> event Object that is being sent to Kafka
    */
   jsonDatatypeParser(obj: object) {
-    if (obj === null) console.log('Obj is undefined');
+    if (obj === null) logger.error('❌ Obj is undefined');
     let schema = {};
     for (let key in obj) {
       if (typeof obj[key] == 'object') {
@@ -108,10 +107,7 @@ class Turnstyl {
         userConfig['big_query_dataset_name'],
         topicID
       );
-      // console.log(JSON.parse(dbPayload), 'dbPayload');
       dbPayload = dbPayload.payload;
-      console.log(producerSchema, 'producerSchema');
-      console.log(dbPayload, 'dbPayload');
     }
     // extract msg data and parse into an object as appropriate
 
@@ -144,7 +140,7 @@ class Turnstyl {
         }
       }
     } catch (err) {
-      logger.error(`Mismatch detected: ${err}`);
+      logger.error(`❌ Mismatch detected: ${err}`);
     }
   }
   //## Helper Methods ##

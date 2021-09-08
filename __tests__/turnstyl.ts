@@ -186,7 +186,7 @@ describe('Turnstyl test', () => {
         );
       } catch (error) {
         expect(error).toEqual(
-          'Mismatch detected: The database payload and producer event do not match'
+          '❌ Mismatch detected: The database payload and producer event do not match'
         );
       }
     });
@@ -242,7 +242,9 @@ describe('Turnstyl test', () => {
         currency: 'string',
         curencyCode: 'string',
       };
-      expect(turnstylTestClass.deepCompareKeys(producerSchema,dbPayload)).toBe(false);
+      expect(turnstylTestClass.deepCompareKeys(producerSchema, dbPayload)).toBe(
+        false
+      );
     });
   });
 });
