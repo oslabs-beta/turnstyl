@@ -20,7 +20,6 @@ function configInitializer() {
         path.join(appRoot.path, 'turnstyl.config.yaml'),
         'utf8'
       );
-      console.log('✅ yml file found');
     }
     // Load yaml into file
     const userConfig: object = yaml.load(cache['yamlFileContents']);

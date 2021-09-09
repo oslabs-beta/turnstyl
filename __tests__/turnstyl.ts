@@ -5,6 +5,7 @@ describe('Turnstyl test', () => {
   const turnstylTestClass = new Turnstyl();
 
   const testTopic: string = 'bank_transfer_events';
+
   const testMessage: object = {
     event_id: '7c9c6a64-2678-4589-90c2-fdb1d33c876c',
     eventTimstamp: '2062-08-08T03:53:23.563Z',
@@ -170,7 +171,7 @@ describe('Turnstyl test', () => {
       await delete turnstylTestClass.schemaCache[testTopic];
       // Checks that value is deleted from cache
       expect(turnstylTestClass.schemaCache[testTopic] === undefined).toBe(true);
-      await turnstylTestClass.extractSchema(testTopic);
+      await turnstylTestClass.cacheProducerEvent(testTopic, testMessage);
       const result = await turnstylTestClass.schemaCache;
       // Checks that new object is placed in cache
       expect(typeof result === 'object').toBe(true);
@@ -185,7 +186,7 @@ describe('Turnstyl test', () => {
         );
       } catch (error) {
         expect(error).toEqual(
-          'Mismatch detected:  The database payload and producer event do not match'
+          'Mismatch detected:❌ The database payload and producer event do not match'
         );
       }
     });
@@ -208,6 +209,42 @@ describe('Turnstyl test', () => {
     it('Turnstyl.deepCompareKeys correctly detects general mismatch with extra keys', () => {
       const result = turnstylTestClass.deepCompareKeys(testMessage, testNest);
       expect(result).toBe(false);
+    });
+
+    it('Turrnstyl.deepCompareKeys correctly detects an example from the database', () => {
+      const dbPayload = {
+        event_id: '321574dc-2b12-4d86-933a-1f173d1fb51d',
+        eventTimestamp: '2024-06-28T15:42:48.870Z',
+        eventName: 'bank_transfer_transactions',
+        senderName: 'Kay Mante',
+        senderAccount: '19035200',
+        senderAccountName: 'Credit Card Account',
+        receiverName: 'Dr. Jill Ullrich',
+        receiverAccountName: 'Checking Account',
+        transactionDesc:
+          "deposit transaction at Jacobson, O'Reilly and Towne using card ending with ***8953 for THB 678.23 in account ***38313348",
+        amount: '918.94',
+        curencyCode: 'EGP',
+      };
+      const producerSchema = {
+        event_id: 'string',
+        eventTimestamp: {},
+        eventName: 'string',
+        senderName: 'string',
+        senderAccount: 'number',
+        senderAccountName: 'string',
+        receiverName: 'string',
+        receiverAccount: 'number',
+        receiverAccountName: 'string',
+        transactionDesc: 'string',
+        transaction_type: 'string',
+        amount: 'number',
+        currency: 'string',
+        curencyCode: 'string',
+      };
+      expect(turnstylTestClass.deepCompareKeys(producerSchema, dbPayload)).toBe(
+        false
+      );
     });
   });
 });

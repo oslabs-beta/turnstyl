@@ -1,14 +1,41 @@
 import { TestResult } from '@jest/types';
 import { object } from 'is';
 const { schemaQuery } = require('./schemaQuery');
-const { integrationTestingFlag } = require('./integrationTestingFlag');
 const fs = require('fs');
+const winston = require('winston');
+const { integrationTestingFlag } = require('./integrationTestingFlag');
 const { configInitializer } = require('./configInitializer');
+
+// Winston instance
+let logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'HH:mm:ss MM-DD-YY' }),
+    winston.format.printf((info) =>
+      JSON.stringify({
+        timestamp: info.timestamp,
+        level: info.level,
+        message: info.message,
+      })
+    )
+  ),
+  transports: [
+    // Log routing & logging for level `error`
+    new winston.transports.Console({}),
+    new winston.transports.File({
+      level: 'error',
+      filename: './logs/error.log',
+    }),
+    new winston.transports.File({
+      level: 'info',
+      filename: './logs/info.log',
+    }),
+  ],
+});
 
 const userConfig = configInitializer();
 
-const Turnstyl = function (this: typeof Turnstyl) {
-  this.schemaCache = {};
+class Turnstyl {
+  schemaCache = {};
 
   // Stores schema of producer event and the target topic
   /**
@@ -17,10 +44,10 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param event <Object> event Object that is being sent to Kafka
    * @returns nothing
    */
-  this.cacheProducerEvent = async function (topicID: string, event: object) {
+  async cacheProducerEvent(topicID: string, event: object) {
     // set to overwrite by default, always takes most recent schema
     this.schemaCache[topicID] = this.extractSchema(event);
-  };
+  }
 
   // Take evaluated result of jsonDatatypeParser and pass back to parent function
   // Note - I assume there was some strong logic regarding why don't call jsonDatatypeParser directly in the parent func
@@ -29,10 +56,10 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param event <Object> event Object that is being sent to Kafka
    * @returns nothing
    */
-  this.extractSchema = function (event: object) {
+  extractSchema(event: object) {
     const schema = this.jsonDatatypeParser(event);
     return schema;
-  };
+  }
 
   // Method that converts a JSON object into a nested object
   /**
@@ -40,8 +67,8 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param obj <Object> raw event object
    * @returns <Object> event Object that is being sent to Kafka
    */
-  this.jsonDatatypeParser = function (obj: object) {
-    if (obj === null) console.log('Obj is undefined');
+  jsonDatatypeParser(obj: object) {
+    if (obj === null) logger.error('❌ Obj is undefined');
     let schema = {};
     for (let key in obj) {
       if (typeof obj[key] == 'object') {
@@ -51,7 +78,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
       }
     }
     return schema;
-  };
+  }
 
   // Recursively traverse and compare schemaCache, throws error if there is a mismatch
   /**
@@ -60,10 +87,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @param isTyped <boolean> True if topicID explicitly consists of typed schema, defaults to false for standard data request
    * @returns nothing
    */
-  this.compareProducerToDBSchema = async function (
-    topicID: string,
-    isTyped: boolean = false
-  ) {
+  async compareProducerToDBSchema(topicID: string, isTyped: boolean = false) {
     // fetch updated schema from DB
     const producerSchema = this.schemaCache[topicID];
     let dbPayload;
@@ -80,28 +104,35 @@ const Turnstyl = function (this: typeof Turnstyl) {
       dbPayload = dbPayload.payload;
     }
     // extract msg data and parse into an object as appropriate
-    isTyped ? (dbPayload = dbPayload) : (dbPayload = JSON.parse(dbPayload));
+
+    if (!isTyped) {
+      dbPayload = JSON.parse(dbPayload);
+    }
     try {
       // Stringify both the producer object and database payload
       if (isTyped) {
         if (JSON.stringify(producerSchema) !== dbPayload) {
-          throw '❌ The database payload and producer event do not match on schema check';
+          logger.error({
+            message: `❌ The database payload and producer event do not match on schema check for topic: ${topicID}`,
+          });
         } else {
-          console.log('✅ No issues detected');
+          logger.info('✅ No issues detected');
         }
       } else {
         // check the keys of each and note any mismatch
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
-          throw '❌ The database payload and producer event have a field (key) mistmatch';
+          // add to log file when theres error
+          logger.error(
+            `❌ The database payload and producer event have a field (key) mistmatch for topic: ${topicID}`
+          );
         } else {
-          console.log('✅ No issues detected');
+          logger.info('✅ No issues detected');
         }
       }
     } catch (err) {
-      console.log('❌ Mismatch detected: ', err);
+      logger.error(`Mismatch detected: ${err}`);
     }
-  };
-
+  }
   //## Helper Methods ##
   /**
    * @method deepCompareKeys
@@ -110,7 +141,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
    * @returns <boolean>
    */
   // traverse keys of both schemas and return false upon mismatch
-  this.deepCompareKeys = function (object1: object, object2: object) {
+  deepCompareKeys(object1: object, object2: object) {
     // base case - nulls
     if (object1 === null && object2 === null) {
       return true;
@@ -141,7 +172,7 @@ const Turnstyl = function (this: typeof Turnstyl) {
       }
     }
     return true;
-  };
-};
+  }
+}
 
 export { Turnstyl };
