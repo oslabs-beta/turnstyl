@@ -7,7 +7,6 @@
   <img alt="Snyk" src="https://snyk.io/advisor/npm-package/turnstyl/badge.svg" href='https://snyk.io/advisor/npm-package/turnstyl' />
 </p>
 
-
 Turnstyl is an NPM package built to work with Kafka and Google Big Query to allow you to compare the data schema input at the producer level to what arrives into your data warehouse.
 
 The aim of Turnstyl is to monitor and notify the user of data validity issues in your data pipeline, specifically at the fringe between backend and ETL systems. Turnstyl was primarily designed for use in micro-service architecture where events are dumped into a data warehouse in a generic and schema-agnostic format.
@@ -15,6 +14,7 @@ The aim of Turnstyl is to monitor and notify the user of data validity issues in
 ## ✅ Pre-requisites
 
 To run this package you'll need to have:
+
 - A working instance of Kafka or equivalent message broker
 - Be setup and using Google BigQuery as your data warehouse
 - Have activated the Google API and setup a [service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
@@ -22,6 +22,7 @@ To run this package you'll need to have:
 ## 🚀 QuickStart
 
 Getting started with Turntstyl is easy:
+
 1. In your terminal run `npm install turnstyl` in your target project directory
 2. Create a `turnstyl.config.yaml` in your project root directory, using the template below to input your Google Big Query project and dataset names, and the path to your Google API service account credentials JSON.
 
@@ -47,6 +48,7 @@ big_query_dataset_name: 'BIG_QUERY_DATASET_NAME'
 - `newTurnstyl.compareProducerToDBSchema(topic);` - Compares the events that have arrived into Big Query (assuming the topic name matches your target table) flagging if there is a discrepancy between the two.
 
 ## ✨ Features
+
 - Compare data object processed by the producer to the JSON deposited in the data warehouse
 - Integration with Google Cloud Platform (Big Query)
 
@@ -105,10 +107,11 @@ export { producer };
 ```
 
 ## 🏭 Supported Message brokers
+
 - Apache Kafka
 
-
 ## 🏭 Supported Data Warehouses
+
 - Google Big Query
 
 ## 🚗 Roadmap
@@ -117,11 +120,11 @@ export { producer };
 
 ## 👍 Contribute
 
-Want to contribute to Turnstyl? Head over to our [contribution page](https://github.com/oslabs-beta/turnstyl/blob/main/contributing.md)
+Want to contribute to Turnstyl? Head over to our [contribution page](https://github.com/oslabs-beta/turnstyl/blob/main/CONTRIBUTING.md)
 
 ### Contributors:
 
-[Jae Kim](https://github.com/jaeklm) - [LinkedIn](https://www.linkedin.com/in/jaeklm/) 
+[Jae Kim](https://github.com/jaeklm) - [LinkedIn](https://www.linkedin.com/in/jaeklm/)
 
 [Yolan Arnett](https://github.com/yarnett) - [LinkedIn](https://www.linkedin.com/in/yolanarnett/)
 
@@ -132,6 +135,7 @@ Want to contribute to Turnstyl? Head over to our [contribution page](https://git
 [Michael Colley](https://github.com/michaelecolley) - [LinkedIn](https://www.linkedin.com/in/michaelecolley/) - [Twitter](https://twitter.com/michaelecolley)
 
 If you'd like to support the active development of Turnstyl:
+
 - Add a GitHub Star to the project
 - Tweet about the project on your Twitter.
 - Write a review or tutorial on Medium, Dev.to or personal blog.
