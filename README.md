@@ -114,6 +114,10 @@ export { producer };
 
 - Google Big Query
 
+## 📸 Screenshots
+
+<img align="center" src="https://raw.githubusercontent.com/oslabs-beta/turnstyl/main/assets/screenshot_error_flags.png">
+
 ## 🚗 Roadmap
 
 [Head to our roadmap](https://homespot.notion.site/330ba936328b488e86e6d7395003518b?v=0ae19b46612b43f69630e4cd60a0b0a0) to see our upcoming planned features
