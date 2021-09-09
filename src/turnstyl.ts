@@ -20,16 +20,10 @@ let logger = winston.createLogger({
   ),
   transports: [
     // Log routing & logging for level `error`
-    new winston.transports.Console({
-      level: 'error',
-    }),
+    new winston.transports.Console({}),
     new winston.transports.File({
       level: 'error',
       filename: './logs/error.log',
-    }),
-    // Log routing & logging for level `info`
-    new winston.transports.Console({
-      level: 'info',
     }),
     new winston.transports.File({
       level: 'info',

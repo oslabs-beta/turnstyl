@@ -11,8 +11,6 @@ jobs:
       before_install: # before npm install
         - echo '⬇️ INSTALLING npm packages'
         - npm install
-        - echo '🔼 Bumping version number'
-        - npm --no-git-tag-version version patch
       script: # before running test
         - echo '🃏 RUNNING Jest tests'
         - npm test
