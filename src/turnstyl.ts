@@ -123,7 +123,7 @@ class Turnstyl {
         if (!this.deepCompareKeys(producerSchema, dbPayload)) {
           // add to log file when theres error
           logger.error(
-            `❌ The database payload and producer event have a field (key) mistmatch for topic: ${topicID}`
+            `❌ The database payload and producer event have a field (key) mismatch for topic: ${topicID}`
           );
         } else {
           logger.info('✅ No issues detected');
