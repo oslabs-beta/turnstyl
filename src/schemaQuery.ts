@@ -1,7 +1,6 @@
 const { BigQuery } = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
 const { configInitializer } = require('./configInitializer');
-
+let bigquery;
 const userConfig = configInitializer();
 
 // Function that queries the Big Query API and fetches the latest record from our event table
@@ -17,9 +16,8 @@ const schemaQuery = async (
   tableName: string
 ) => {
   try {
-    if (!projectName || !datasetName || !tableName) throw 'undefined';
-    if (datasetName === '' || datasetName === '' || tableName === '')
-      throw 'an empty string';
+    if (projectName === '' || datasetName === '' || tableName === '')
+      throw 'Invalid Input: input is an empty string';
     const query: string = `
       SELECT payload
       FROM ${projectName}.${datasetName}.${tableName}
@@ -27,17 +25,33 @@ const schemaQuery = async (
       DESC
       LIMIT 1
       `;
+    bigquery = new BigQuery({
+      keyFileName: userConfig['google_service_credentials'],
+      projectId: `${projectName}`,
+    });
+
     // Run the query as a job
     const [job] = await bigquery.createQueryJob({
-      keyFilename: userConfig['google_service_credentials'],
       query: query,
     });
-    // Wait for the query to finish
-    const [rows] = await job.getQueryResults();
-    // return the first row from the table
-    return rows[0];
+    // Fetch metadata
+    const [result] = await job.getMetadata();
+    // Add in error handling
+    if (result.status && result.status.state === 'DONE') {
+      if (result.status.errorResult) {
+        throw new Error(
+          result.status.errorResult.message
+            ? result.status.errorResult.message
+            : JSON.stringify(result.status.errorResult)
+        );
+      }
+      // Wait for the query to finish
+      const [rows] = await job.getQueryResults();
+      // return the first row from the table
+      return rows[0];
+    }
   } catch (err) {
-    return 'Invalid Input: input is ' + err;
+    throw err;
   }
 };
 
