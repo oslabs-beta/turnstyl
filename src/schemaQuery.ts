@@ -17,8 +17,7 @@ const schemaQuery = async (
   tableName: string
 ) => {
   try {
-    if (!projectName || !datasetName || !tableName) throw 'undefined';
-    if (datasetName === '' || datasetName === '' || tableName === '')
+    if (projectName === '' || datasetName === '' || tableName === '')
       throw 'an empty string';
     const query: string = `
       SELECT payload
@@ -37,7 +36,8 @@ const schemaQuery = async (
     // return the first row from the table
     return rows[0];
   } catch (err) {
-    return 'Invalid Input: input is ' + err;
+    err = 'Invalid Input: input is ' + err;
+    throw err;
   }
 };
 
