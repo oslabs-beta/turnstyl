@@ -14,11 +14,8 @@ describe('schemaQuery test', () => {
         await schemaQuery('', datasetName, tableName);
       } catch (error) {
         expect(error).toEqual(emptyStringError);
-        errorWeExceptFor = error;
+        expect(error).not.toBeNull();
       }
-      expect(errorWeExceptFor).not.toBeNull();
-      //if this assertion fails, the tests results/reports will only show
-      //that some value is null, there won't be a word about a missing Exception
     });
 
     it('When empty datasetName it throws an empty string error', async () => {
@@ -26,9 +23,8 @@ describe('schemaQuery test', () => {
         await schemaQuery(projectName, '', tableName);
       } catch (error) {
         expect(error).toEqual(emptyStringError);
-        errorWeExceptFor = error;
+        expect(error).not.toBeNull();
       }
-      expect(errorWeExceptFor).not.toBeNull();
       //if this assertion fails, the tests results/reports will only show
       //that some value is null, there won't be a word about a missing Exception
     });
@@ -38,9 +34,8 @@ describe('schemaQuery test', () => {
         await schemaQuery(projectName, datasetName, '');
       } catch (error) {
         expect(error).toEqual(emptyStringError);
-        errorWeExceptFor = error;
+        expect(error).not.toBeNull();
       }
-      expect(errorWeExceptFor).not.toBeNull();
       //if this assertion fails, the tests results/reports will only show
       //that some value is null, there won't be a word about a missing Exception
     });
