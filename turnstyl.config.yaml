@@ -1,6 +1,5 @@
 version: '1.0'
-
-google_service_credentials: './bigQueryServiceCredentials.json'
+google_service_credentials: './src/bigQueryServiceCredentials.json'
 big_query_project_name: 'probable-cove-323115'
 big_query_dataset_name: 'turnstyl_test_events'
 testPayload: >
