@@ -4,7 +4,6 @@
   <img alt="npm version" src="https://img.shields.io/npm/v/turnstyl" />
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/turnstyl" />
   <img alt="Github stars" src="https://shields.io/github/stars/oslabs-beta/turnstyl" />
-  <img alt="Snyk" src="https://snyk.io/advisor/npm-package/turnstyl/badge.svg" href='https://snyk.io/advisor/npm-package/turnstyl' />
 </p>
 
 Turnstyl is an NPM package built to work with Kafka and Google Big Query to allow you to compare the data schema input at the producer level to what arrives into your data warehouse.
